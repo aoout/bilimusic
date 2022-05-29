@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "bilimusic"
+version = "0.1.0"
+description = ""
+authors = ["aoout <wuz66280@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+Pillow = "^9.1.1"
+eyed3 = "^0.9.6"
+requests = "^2.27.1"
+moviepy = "^1.0.3"
+
+[tool.poetry.dev-dependencies]
+autopep8 = "^1.6.0"
+
+[[tool.poetry.source]]
+name = "tsinghua"
+url = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple/"
+default = true
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
