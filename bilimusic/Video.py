@@ -35,7 +35,7 @@ class Video:
         )
         info.update(correction)
         info.update(dict(
-            album=info['album']
+            album=info['title']
         ))
         for a in r.json()['data']['pages']:
             self.pages.append(VideoPage(self.bvid, a['cid'], info))

@@ -64,6 +64,4 @@ class VideoPage:
             img = square_jpeg(img)
             img.resize((500, 500))
             img.save(tmp2.name)
-            with open('test.jpg', 'wb') as f:
-                f.write(imagedata)
             return tmp2.read()
