@@ -30,12 +30,13 @@ class Video:
             play_count=data['stat']['view'],
             release_date=time.strftime(
                 '%Y-%m-%d', time.localtime(data['pubdate'])),
-            copyright=str(data['copyright']),
+            copyright='自制' if data['copyright'] == 1 else '转载',
             imageurl=data['pic']
         )
         info.update(correction)
         info.update(dict(
-            album=info['title']
+            album=info['title'],
+            album_artist=info['artist']
         ))
         for a in r.json()['data']['pages']:
             self.pages.append(VideoPage(self.bvid, a['cid'], info))
