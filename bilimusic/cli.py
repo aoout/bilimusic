@@ -1,9 +1,11 @@
 import argparse
 
-from .Video import Video
+from .video import Video
 
 def run():
-
+    '''
+    provides parsing of the command line.
+    '''
     parser = argparse.ArgumentParser()
     parser.add_argument('id', help='bvid or link to the video')
     parser.add_argument('-c', '--cleaner_cover',
@@ -17,9 +19,8 @@ def run():
     args = parser.parse_args()
 
 
-
-    video = Video(args.id, lazyload=True)
-    correction = dict()
+    video = Video(args.id)
+    correction = {}
     if args.artist:
         correction['artist'] = args.artist
     if args.title:
@@ -40,3 +41,4 @@ def run():
         cleaner_cover=args.cleaner_cover,
         cover_offset=cover_offset
     )
+

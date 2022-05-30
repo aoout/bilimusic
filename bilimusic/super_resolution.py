@@ -6,7 +6,7 @@ from cv2 import dnn_superres
 
 def super_resolution(src: str or Path, dest: str or Path) -> None:
     # TODO:自动判断是否需要超分辨度
-    sr = dnn_superres.DnnSuperResImpl_create()
+    sr = dnn_superres.DnnSuperResImpl_create() # pylint: disable=no-member
     image = cv2.imread(src)
     path = "LapSRN_x8.pb"
     sr.readModel(path)
