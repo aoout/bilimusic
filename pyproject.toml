@@ -10,6 +10,7 @@ Pillow = "^9.1.1"
 eyed3 = "^0.9.6"
 requests = "^2.27.1"
 moviepy = "^1.0.3"
+opencv-contrib-python = "^4.5.5"
 
 [tool.poetry.dev-dependencies]
 autopep8 = "^1.6.0"

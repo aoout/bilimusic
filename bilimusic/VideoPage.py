@@ -1,12 +1,14 @@
-import os
 import tempfile
+from tempfile import NamedTemporaryFile
 
 import eyed3
 import requests
 from moviepy.editor import AudioFileClip
+from PIL import Image
 from tqdm import tqdm
 
-from .utils import square_imagedata
+from .super_resolution import super_resolution
+from .utils import square_jpeg
 
 
 class VideoPage:
@@ -50,6 +52,18 @@ class VideoPage:
                 setattr(af.tag, key, value)
             else:
                 imagedata = requests.get(url=value).content
-                imagedata = square_imagedata(imagedata)
+                imagedata = self.make_cover(imagedata)
                 af.tag.images.set(3, imagedata, "image/jpeg", u"cover")
                 af.tag.save()
+
+    def make_cover(self, imagedata: bytes) -> bytes:
+        with NamedTemporaryFile(suffix='.jpg', delete=False) as tmp1, NamedTemporaryFile(suffix='.jpg', delete=False) as tmp2:
+            tmp1.write(imagedata)
+            super_resolution(tmp1.name, tmp1.name)
+            img = Image.open(tmp1.name).convert('RGB')
+            img = square_jpeg(img)
+            img.resize((500, 500))
+            img.save(tmp2.name)
+            with open('test.jpg', 'wb') as f:
+                f.write(imagedata)
+            return tmp2.read()
