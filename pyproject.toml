@@ -11,6 +11,7 @@ eyed3 = "^0.9.6"
 requests = "^2.27.1"
 moviepy = "^1.0.3"
 opencv-contrib-python = "^4.5.5"
+fire = "^0.4.0"
 
 [tool.poetry.dev-dependencies]
 autopep8 = "^1.6.0"
@@ -19,6 +20,9 @@ autopep8 = "^1.6.0"
 name = "tsinghua"
 url = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple/"
 default = true
+
+[tool.poetry.scripts]
+bilimusic = 'bilimusic.cli:run'
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

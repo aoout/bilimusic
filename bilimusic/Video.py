@@ -33,11 +33,12 @@ class Video:
             copyright='自制' if data['copyright'] == 1 else '转载',
             imageurl=data['pic']
         )
-        info.update(correction)
         info.update(dict(
             album=info['title'],
             album_artist=info['artist']
         ))
+        info.update(correction)
+        # FIXME: 更加复杂的判断逻辑被加入
         for a in r.json()['data']['pages']:
             self.pages.append(VideoPage(self.bvid, a['cid'], info))
 

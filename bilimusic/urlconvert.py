@@ -20,3 +20,4 @@ def url2bvid(url: str) -> str:
 def mid2url(mid: int) -> str:
     return f"https://space.bilibili.com/{mid}"
 
+# TODO:从av号形式的链接会进入链接中包含av号而不是bvid的链接。加入对于av号在api中的适配
