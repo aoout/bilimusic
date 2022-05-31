@@ -5,7 +5,9 @@ Compared to a lot of same type applications and scripts, **BiliMusic can do more
 
 ## How to Install
 
-As the program is still too unstable, it cannot be published to pypi.org. So you can get the package from the release page or `dist` floder , and install it with the   `pip`.
+```
+pip install bilimusic
+```
 
 ## Basic Usage
 
@@ -15,7 +17,7 @@ You can just type that to install a music:
 bilimusic BV1us411X7hb
 ```
 
-Or, you can use the av number:
+Or, you can use the av number(broken now):
 
 ```
 bilimusic 4188543
