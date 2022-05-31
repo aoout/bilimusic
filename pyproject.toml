@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "bilimusic"
 version = "0.1.0"
-description = ""
+description = "BiliMusic helps you to download mp3 music file from bilibili video. Compared to a lot of same type applications and scripts, BiliMusic can do more, it can set metadata on mp3 file automatically."
 authors = ["aoout <wuz66280@gmail.com>"]
 
 [tool.poetry.dependencies]
@@ -24,7 +24,7 @@ url = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple/"
 default = true
 
 [tool.poetry.scripts]
-bilimusic = 'bilimusic.cli:run'
+bilimusic = "bilimusic.cli:run"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

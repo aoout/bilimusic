@@ -2,7 +2,6 @@
 import time
 from pathlib import Path
 from tempfile import NamedTemporaryFile
-from unicodedata import name
 
 import requests
 from moviepy.editor import AudioFileClip

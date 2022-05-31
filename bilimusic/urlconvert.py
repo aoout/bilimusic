@@ -89,10 +89,10 @@ def is_what(text: Any) -> Optional[str]:
     '''
     determine what this is.
     '''
-    if is_bvid(text):
-        return 'bvid'
     if is_av(text):
         return 'av'
+    if is_bvid(text):
+        return 'bvid'
     if is_validurl(text):
         return 'url'
     return None
@@ -104,10 +104,10 @@ def extend_id(text: Any) -> Optional[dict]:
     '''
     result = dict.fromkeys(['bvid', 'av', 'url'], None)
     if type_ := is_what(text):
-        if type_ == 'bvid':
-            result.update(dict(bvid=text, url=bvid2url(text)))
-        elif type_ == 'av':
+        if type_ == 'av':
             result.update(dict(av=text, url=av2url(text)))
+        elif type_ == 'bvid':
+            result.update(dict(bvid=text, url=bvid2url(text)))
         else:
             if url2bvid(text):
                 result.update(dict(url=text, bvid=url2bvid(text)))
