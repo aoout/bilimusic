@@ -2,8 +2,15 @@
 implemented some functions unrelated to business logic.
 '''
 
-from PIL.JpegImagePlugin import JpegImageFile
 from PIL.Image import Image
+from PIL.JpegImagePlugin import JpegImageFile
+
+
+def bytes2md(bytes_: int, decimal_places: int = 3) -> float:
+    '''
+    convert the bytes to md.
+    '''
+    return round(bytes_/1024, 1024, decimal_places)
 
 
 def square_jpeg(img: JpegImageFile, offset: float = 0.0) -> Image:

@@ -1,6 +1,7 @@
 # pylint: disable=missing-module-docstring
 
 from pathlib import Path
+
 import eyed3
 
 
@@ -13,6 +14,12 @@ class Mp3:
         path = Path(path)
         self.path = path
         self.audiofile = eyed3.load(path)
+
+    def initTag(self, version: tuple = (2, 3, 0)) -> None:  # pylint: disable=invalid-name
+        '''
+        init the tag of the mp3 file.
+        '''
+        self.audiofile.initTag(version)
 
     def settags_withdict(self, dict_: dict) -> None:
         '''
