@@ -4,7 +4,7 @@ import time
 import requests
 
 from .urlconvert import *
-from .VideoPage import VideoPage
+from .videoPage import VideoPage
 
 
 class Video:

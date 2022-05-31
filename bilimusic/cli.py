@@ -1,3 +1,4 @@
+# pylint: disable=missing-module-docstring
 import argparse
 
 from .video import Video
@@ -28,9 +29,7 @@ def run():
     if args.album:
         correction['album'] = args.album
 
-    video.parse(
-        correction=correction
-    )
+    video.parse()
     videopage = video.pages[0]
 
     cover_offset = 0.0

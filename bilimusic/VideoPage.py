@@ -1,3 +1,4 @@
+# pylint: disable=missing-module-docstring
 from tempfile import NamedTemporaryFile
 
 import eyed3
