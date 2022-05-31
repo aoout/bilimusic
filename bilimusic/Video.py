@@ -2,6 +2,7 @@
 import time
 from pathlib import Path
 from tempfile import NamedTemporaryFile
+from unicodedata import name
 
 import requests
 from moviepy.editor import AudioFileClip
@@ -37,7 +38,7 @@ class Video:
                                     params=dict(
                                         bvid=self.bvid
                                     ) if self.bvid else dict(
-                                        aid=self.aid
+                                        aid=self.av
                                     ))
             data = response.json()['data']
         except Exception as exception:
@@ -60,13 +61,17 @@ class Video:
 
         self.cids = [a['cid'] for a in data['pages']]
 
+        self._extendinfo_withguess()
+
     def _extendinfo_withguess(self) -> None:
         '''
         completing meta information by guessing
         '''
         self.info.update(dict(
             artist=self.info['publisher'],
-            artist_url=self.info['publisher_url'],
+            artist_url=self.info['publisher_url']
+        ))
+        self.info.update(dict(
             album=self.info['title'],
             album_artist=self.info['artist']
         ))
@@ -76,7 +81,11 @@ class Video:
         set info with  a dict.
         '''
         self.info.update(info)
-        self._extendinfo_withguess()
+        if 'title' in info.keys() or 'artist' in info.keys():
+            self.info.update(dict(
+                album=self.info['title'],
+                album_artist=self.info['artist']
+            ))
 
     def __repr__(self) -> str:
         '''
@@ -100,8 +109,8 @@ class Video:
                    'referer': 'https://www.bilibili.com'}
 
         with NamedTemporaryFile(suffix='.mp4', delete=False) as tmp:
-            content_length = requests.head(
-                url, headers=headers).headers['Content-Length']
+            content_length = int(requests.head(
+                url, headers=headers).headers['Content-Length'])
             total = bytes2md(content_length)
             with requests.get(url, stream=True, headers=headers) as r:
                 with tqdm(total=total, unit='mb') as pbar:
@@ -145,4 +154,17 @@ class Video:
         mp3 = Mp3(path)
         mp3.initTag()
         mp3.settags_withdict(self.info)
-        mp3.set_cover_fromfile(path)
+        mp3.set_cover_fromfile(cover_path)
+
+    def download_mp3(self, page_index: int = 0, path: str or Path = None, offset: float = 0.0, size: tuple = (500, 500)) -> None:
+        '''
+        download a page of the video to mp3, and set meteadata.
+        '''
+        path = Path(path) if path else Path(f"{self.info['title']}.mp3")
+        self.download_audio(page_index, path)
+        with NamedTemporaryFile(suffix='.jpg', delete=False) as tmp:
+            self.download_cover(tmp.name)
+            if min(Image.open(tmp.name).size) < min(size):
+                self.clarify_cover(tmp.name)
+            self.cut_cover(tmp.name, offset, size)
+            self.attach_tags(path, cover_path=tmp.name)

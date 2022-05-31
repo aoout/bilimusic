@@ -105,13 +105,13 @@ def extend_id(text: Any) -> Optional[dict]:
     result = dict.fromkeys(['bvid', 'av', 'url'], None)
     if type_ := is_what(text):
         if type_ == 'bvid':
-            result.update(dict(url=bvid2url(text)))
+            result.update(dict(bvid=text, url=bvid2url(text)))
         elif type_ == 'av':
-            result.update(dict(url=av2url(text)))
+            result.update(dict(av=text, url=av2url(text)))
         else:
             if url2bvid(text):
-                result.update(dict(bvid=url2bvid(text)))
+                result.update(dict(url=text, bvid=url2bvid(text)))
             else:
-                result.update(dict(av=url2av(text)))
+                result.update(dict(url=text, av=url2av(text)))
         return result
     return None
