@@ -1,22 +1,12 @@
 # pylint: disable=missing-module-docstring
 import argparse
-import shutil
-from pathlib import Path
-
-from .video import Video
+from .Video import Video
 
 
 def run():
     '''
     provides parsing of the command line.
     '''
-    root_path = Path.home() / '.bilimusic'
-    models_path = root_path/'models'
-    if not root_path.exists():
-        root_path.mkdir()
-    if not models_path.exists():
-        shutil.copytree(Path('models'), models_path)
-
     parser = argparse.ArgumentParser()
     parser.add_argument('id', help='bvid or link to the video')
     parser.add_argument('-o', '--offset_cover', type=float,
