@@ -20,7 +20,8 @@ class Video:
     '''
 
     def __init__(self, id_: str or int) -> None:
-        if result := extend_id(id_):
+        result = extend_id(id_)
+        if result:
             for key, value in result.items():
                 setattr(self, key, value)
         else:
@@ -116,7 +117,7 @@ class Video:
                     for chunk in r.iter_content(chunk_size=1024):
                         tmp.write(chunk)
                         pbar.update(bytes2md(len(chunk)))
-            AudioFileClip(tmp.name).write_audiofile(path, bitrate='192k')
+            AudioFileClip(tmp.name).write_audiofile(str(path), bitrate='192k') 
 
     def download_cover(self, path: str or Path = None) -> None:
         '''

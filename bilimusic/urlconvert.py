@@ -103,7 +103,8 @@ def extend_id(text: Any) -> Optional[dict]:
     obtain other identifiers from one identifier of the video.
     '''
     result = dict.fromkeys(['bvid', 'av', 'url'], None)
-    if type_ := is_what(text):
+    type_ = is_what(text)
+    if type_:
         if type_ == 'av':
             result.update(dict(av=text, url=av2url(text)))
         elif type_ == 'bvid':

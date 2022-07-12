@@ -19,7 +19,8 @@ def run():
 
     video = Video(args.id)
     for key in ('artist', 'title', 'album'):
-        if value := getattr(args, key):
+        value = getattr(args, key)
+        if value:
             video.setinfo({key: value})
     cover_offset = args.offset_cover if args.offset_cover else 0.0
     video.download_mp3(
