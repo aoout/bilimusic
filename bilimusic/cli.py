@@ -1,28 +1,40 @@
-# pylint: disable=missing-module-docstring
-import argparse
+# pylint: disable=missing-module-docstring,invalid-name
+import fire
 from .Video import Video
+
+
+class BiliMusic:
+    '''
+    command group.
+    '''
+    def __init__(self, offset=0.0) -> None:
+        self._offset = offset
+
+    def music(self, id_, artist=None, title=None, album=None):
+        '''
+        download the mp3 file.
+        '''
+        video = Video(id_)
+
+        video.setinfo({key: value for key, value in dict(
+            artist=artist,
+            title=title,
+            album=album
+        ).items() if value})
+
+        video.download_mp3(offset=self._offset)
+
+    def cover(self, id_):
+        '''
+        download the cover.
+        '''
+        video = Video(id_)
+        video.download_cover()
+        video.cut_cover(offset=self._offset)
 
 
 def run():
     '''
-    provides parsing of the command line.
+    the entry of the program.
     '''
-    parser = argparse.ArgumentParser()
-    parser.add_argument('id', help='bvid or link to the video')
-    parser.add_argument('-o', '--offset_cover', type=float,
-                        help='the percentage to offset cover')
-    parser.add_argument('-ar', '--artist',  help='the artist')
-    parser.add_argument('-t', '--title',  help='the artist')
-    parser.add_argument('-al', '--album',  help='the album')
-
-    args = parser.parse_args()
-
-    video = Video(args.id)
-    for key in ('artist', 'title', 'album'):
-        value = getattr(args, key)
-        if value:
-            video.setinfo({key: value})
-    cover_offset = args.offset_cover if args.offset_cover else 0.0
-    video.download_mp3(
-        offset=cover_offset
-    )
+    fire.Fire(BiliMusic)

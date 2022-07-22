@@ -9,7 +9,6 @@ from PIL import Image
 from tqdm import tqdm
 
 from .mp3 import Mp3
-from .super_resolution import super_resolution
 from .urlconvert import extend_id, mid2url
 from .utils import bytes2md, square_jpeg
 
@@ -137,12 +136,6 @@ class Video:
         img.resize(size)
         img.save(path)
 
-    def clarify_cover(self, path: str or Path = None) -> None:
-        '''
-        make the cover more clean.
-        '''
-        path = Path(path) if path else Path(f"{self.info['title']}.jpg")
-        super_resolution(path, path)
 
     def attach_tags(self, path: str or Path = None, cover_path: str or Path = None) -> None:
         '''
@@ -164,7 +157,5 @@ class Video:
         self.download_audio(page_index, path)
         with NamedTemporaryFile(suffix='.jpg', delete=False) as tmp:
             self.download_cover(tmp.name)
-            if min(Image.open(tmp.name).size) < min(size):
-                self.clarify_cover(tmp.name)
             self.cut_cover(tmp.name, offset, size)
             self.attach_tags(path, cover_path=tmp.name)

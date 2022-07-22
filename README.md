@@ -38,7 +38,7 @@ Such as, the publisher may be different from artist, video title may include som
 To solve the problem, you can input some data and flags when you download the music file.
 
 ```
-bilimusic BV1us411X7hb -t 四重罪孽 -ar 洛天依 -al 妄想症
+bilimusic music BV1us411X7hb --title=四重罪孽 --artist=洛天依 --album=妄想症
 ```
 
 You can type that to check all the parameters and flags:
@@ -58,7 +58,7 @@ if you specify offset as negative 1.0, then the image will be It will be display
 You can type that to specify offset to cover:
 
 ```
-bilimusic BV1us411X7hb -t 四重罪孽 -ar 洛天依 -al 妄想症 -o 1.0
+bilimusic BV1us411X7hb --title 四重罪孽 --artist=洛天依 --album=妄想症 --offset=1.0
 ```
 
 And that's what you get.
@@ -66,17 +66,4 @@ And that's what you get.
 ![](attachment/002.png)
 
 As you may have noticed, this song has multiple singers, but I only named one. This is because the players do not recognize the situation of multiple singers. So not only is it pointless to do that, it could also mess up your music collection.
-
-## Super resolution
-
-Sometimes, the video has a low-quality cover. 
-
-It would be really annoying if the mp3 file had a too low resolution cover. Because they don't appear as big as other files in some views.
-
-However, I've provided automatic super-resolution processing that can figure out low-quality that covers are too low resolution and increase its resolution them. It's not a simple "zoom in and out", it will also make the cover of the song clearer.
-
-## Todo
-
-I don't know is there some other things that I can do. So if you guys find something useful, you can just mention it in the issue.
-
 

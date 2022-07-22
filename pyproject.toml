@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "bilimusic"
-version = "0.1.2"
+version = "1.0.0"
 description = "BiliMusic helps you to download mp3 music file from bilibili video. Compared to a lot of same type applications and scripts, BiliMusic can do more, it can set metadata on mp3 file automatically."
 authors = ["aoout <wuz66280@gmail.com>"]
 
@@ -11,8 +11,6 @@ eyed3 = "^0.9.6"
 fire = "^0.4.0"
 requests = "^2.28.1"
 moviepy = "^1.0.3"
-numpy = "1.21.2"
-opencv-contrib-python = "^4.6.0"
 
 [tool.poetry.dev-dependencies]
 autopep8 = "^1.6.0"
