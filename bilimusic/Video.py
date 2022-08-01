@@ -10,7 +10,7 @@ from tqdm import tqdm
 
 from .mp3 import Mp3
 from .urlconvert import extend_id, mid2url
-from .utils import bytes2md, square_jpeg
+from .utils import bytes2md, square_jpeg,to_pathname
 
 
 class Video:
@@ -153,7 +153,7 @@ class Video:
         '''
         download a page of the video to mp3, and set meteadata.
         '''
-        path = Path(path) if path else Path(f"{self.info['title']}.mp3")
+        path = Path(path) if path else Path(to_pathname( f"{self.info['title']}.mp3"))
         self.download_audio(page_index, path)
         with NamedTemporaryFile(suffix='.jpg', delete=False) as tmp:
             self.download_cover(tmp.name)

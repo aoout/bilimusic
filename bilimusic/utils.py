@@ -34,3 +34,9 @@ def square_jpeg(img: JpegImageFile, offset: float = 0.0) -> Image:
         width,
         height-leftover + int(leftover * offset)
     ))
+
+def to_pathname(path: str) -> str:
+    '''
+    convert a string to a valid windows path.
+    '''
+    return ''.join([c for c in path if c not in ['\\', '/', ':', '*', '?', '"', '<', '>', '|']])
