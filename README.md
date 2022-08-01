@@ -58,7 +58,7 @@ if you specify offset as negative 1.0, then the image will be It will be display
 You can type that to specify offset to cover:
 
 ```
-bilimusic BV1us411X7hb --title 四重罪孽 --artist=洛天依 --album=妄想症 --offset=1.0
+bilimusic BV1us411X7hb --title=四重罪孽 --artist=洛天依 --album=妄想症 --offset=1.0
 ```
 
 And that's what you get.
