@@ -97,13 +97,7 @@ class Video:
         download a page of the video.
         '''
         path = Path(path) if path else Path(f"{self.info['title']}.mp3")
-        response = requests.get(url='http://api.bilibili.com/x/player/playurl',
-                                params=dict(
-                                    bvid=self.bvid,
-                                    cid=self.cids[page_index],
-                                    fnval=16
-                                ))
-        url = response.json()['data']['dash']['audio'][0]['baseUrl']
+        url = self.get_audio_url(page_index)
         headers = {'user-agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36 OPR/26.0.1656.60',
                    'referer': 'https://www.bilibili.com'}
 
@@ -117,6 +111,19 @@ class Video:
                         tmp.write(chunk)
                         pbar.update(bytes2md(len(chunk)))
             AudioFileClip(tmp.name).write_audiofile(str(path), bitrate='192k') 
+
+    def get_audio_url(self, page_index):
+        '''
+        get the url of the music.
+        '''
+        response = requests.get(url='http://api.bilibili.com/x/player/playurl',
+                                params=dict(
+                                    bvid=self.bvid,
+                                    cid=self.cids[page_index],
+                                    fnval=16
+                                ))
+        url = response.json()['data']['dash']['audio'][0]['baseUrl']
+        return url
 
     def download_cover(self, path: str or Path = None) -> None:
         '''

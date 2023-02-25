@@ -7,10 +7,10 @@ class BiliMusic:
     '''
     command group.
     '''
-    def __init__(self, offset=0.0) -> None:
+    def __init__(self, offset:float=0.0) -> None:
         self._offset = offset
 
-    def music(self, id_, artist=None, title=None, album=None):
+    def music(self, id_:str or int, artist:str=None, title:str=None, album:str=None, start:float=None, end:float=None):
         '''
         download the mp3 file.
         '''
