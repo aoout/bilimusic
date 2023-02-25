@@ -22,7 +22,7 @@ class BiliMusic:
             album=album
         ).items() if value})
 
-        video.download_mp3(offset=self._offset)
+        video.download_mp3(offset=self._offset,start=start,end=end)
 
     def cover(self, id_):
         '''

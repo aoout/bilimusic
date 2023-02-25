@@ -116,4 +116,3 @@ def extend_id(text: Any) -> Optional[dict]:
                 result.update(dict(url=text, av=url2av(text)))
         return result
     return None
-

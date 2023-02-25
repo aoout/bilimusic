@@ -4,13 +4,12 @@ from pathlib import Path
 from tempfile import NamedTemporaryFile
 
 import requests
-from moviepy.editor import AudioFileClip
 from PIL import Image
-from tqdm import tqdm
+
 
 from .mp3 import Mp3
 from .urlconvert import extend_id, mid2url
-from .utils import bytes2md, square_jpeg, to_pathname
+from .utils import download_audio, square_jpeg, to_pathname, extract_audio
 
 
 class Video:
@@ -92,7 +91,7 @@ class Video:
         '''
         return f"Video(av={self.av},bvid={self.bvid},cids={','.join(self.cids)})"
 
-    def download_bilibili_audio(self, page_index: int = 0, path: str or Path = None) -> None:
+    def download_audio(self, page_index: int = 0, path: str or Path = None) -> None:
         '''
         download a page of the video.
         '''
@@ -100,24 +99,7 @@ class Video:
         url = self.get_audio_url(page_index)
         headers = {'user-agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36 OPR/26.0.1656.60',
                    'referer': 'https://www.bilibili.com'}
-        self.download_audio(path, url, headers)
-
-    def download_audio(self, path: str or Path, url: str, headers: dict) -> None:
-        '''
-        download a audio from url.
-        '''
-        path = Path(path)
-
-        with NamedTemporaryFile(suffix='.mp4', delete=False) as tmp:
-            content_length = int(requests.head(
-                url, headers=headers).headers['Content-Length'])
-            total = bytes2md(content_length)
-            with requests.get(url, stream=True, headers=headers) as r:
-                with tqdm(total=total, unit='mb') as pbar:
-                    for chunk in r.iter_content(chunk_size=1024):
-                        tmp.write(chunk)
-                        pbar.update(bytes2md(len(chunk)))
-            AudioFileClip(tmp.name).write_audiofile(str(path), bitrate='192k')
+        download_audio(path, url, headers)
 
     def get_audio_url(self, page_index: int = 0) -> str:
         '''
@@ -162,14 +144,17 @@ class Video:
         mp3.settags_withdict(self.info)
         mp3.set_cover_fromfile(cover_path)
 
-    def download_mp3(self, page_index: int = 0, path: str or Path = None, offset: float = 0.0, size: tuple = (500, 500)) -> None:
+    def download_mp3(self, page_index: int = 0, path: str or Path = None, offset: float = 0.0, size: tuple = (500, 500), start: int = None, end: int = None) -> None:
         '''
         download a page of the video to mp3, and set meteadata.
         '''
         path = Path(path) if path else Path(
             to_pathname(f"{self.info['title']}.mp3"))
-        self.download_bilibili_audio(page_index, path)
+        self.download_audio(page_index, path)
         with NamedTemporaryFile(suffix='.jpg', delete=False) as tmp:
             self.download_cover(tmp.name)
             self.cut_cover(tmp.name, offset, size)
             self.attach_tags(path, cover_path=tmp.name)
+
+        if start and end:
+            extract_audio(path, start=start, end=end)
