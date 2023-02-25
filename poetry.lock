@@ -797,6 +797,23 @@ url = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple"
 reference = "tsinghua"
 
 [[package]]
+name = "pydub"
+version = "0.25.1"
+description = "Manipulate audio with an simple and easy high level interface"
+category = "main"
+optional = false
+python-versions = "*"
+files = [
+    {file = "pydub-0.25.1-py2.py3-none-any.whl", hash = "sha256:65617e33033874b59d87db603aa1ed450633288aefead953b30bded59cb599a6"},
+    {file = "pydub-0.25.1.tar.gz", hash = "sha256:980a33ce9949cab2a569606b65674d748ecbca4f0796887fd6f46173a7b0d30f"},
+]
+
+[package.source]
+type = "legacy"
+url = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple"
+reference = "tsinghua"
+
+[[package]]
 name = "pylint"
 version = "2.13.9"
 description = "python code static checker"
@@ -1132,4 +1149,4 @@ reference = "tsinghua"
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.7.0 <3.11"
-content-hash = "0cf5a61af8310b889257b5bcddc50a16f8f9ed214d61235aee91bad5c410e055"
+content-hash = "7617f2531d294c9bd291f77c710268b586a80dd60bb8ad079327ba52bf202590"

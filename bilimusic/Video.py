@@ -102,7 +102,7 @@ class Video:
                    'referer': 'https://www.bilibili.com'}
         self.download_audio(path, url, headers)
 
-    def download_audio(self, path: str or Path, url: str, headers: dict):
+    def download_audio(self, path: str or Path, url: str, headers: dict) -> None:
         '''
         download a audio from url.
         '''
@@ -119,7 +119,7 @@ class Video:
                         pbar.update(bytes2md(len(chunk)))
             AudioFileClip(tmp.name).write_audiofile(str(path), bitrate='192k')
 
-    def get_audio_url(self, page_index: int):
+    def get_audio_url(self, page_index: int = 0) -> str:
         '''
         get the url of the music.
         '''
