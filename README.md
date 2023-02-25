@@ -14,19 +14,19 @@ pip install bilimusic
 You can just type that to install a music:
 
 ```
-bilimusic BV1us411X7hb
+bilimusic music BV1us411X7hb
 ```
 
 Or, you can use the av number(broken now):
 
 ```
-bilimusic 4188543
+bilimusic music 4188543
 ```
 
 Url is ok, the same time.
 
 ```
-bilimusic https://www.bilibili.com/video/BV1us411X7hb?spm_id_from=333.337.search-card.all.click
+bilimusic music https://www.bilibili.com/video/BV1us411X7hb?spm_id_from=333.337.search-card.all.click
 ```
 
 the music file will happen in the path where you type the command, and be set some metadata.
